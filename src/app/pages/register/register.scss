@@ -1,0 +1,21 @@
+.custom-input {
+  border: 1px solid #e2e8f0;
+  border-radius: 2px;
+  background-color: #ffffff;
+  color: #334155;
+  font-size: 0.875rem;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.custom-input::placeholder {
+  color: #cbd5e1;
+}
+
+.label-style {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569; 
+  font-family: ui-monospace, monospace;
+}

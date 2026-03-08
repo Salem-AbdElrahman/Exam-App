@@ -1,0 +1,33 @@
+.custom-input {
+  border: 1px solid #e2e8f0;
+  border-radius: 2px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  transition: border-color 0.2s;
+}
+
+.custom-input:focus {
+  outline: none;
+  border-color: #1d5cff;
+}
+
+.custom-input::placeholder {
+  color: #cbd5e1;
+}.custom-input {
+  border: 1px solid #e2e8f0;
+  border-radius: 2px;
+  background-color: #ffffff;
+  color: #334155;
+  font-size: 0.875rem;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  transition: all 0.2s;
+}
+
+.custom-input::placeholder {
+  color: #cbd5e1;
+  font-family: ui-monospace, monospace;
+}
+
+.custom-input:focus {
+  outline: none;
+  border-color: #1d5cff;
+}

@@ -34,49 +34,76 @@
     <div class="w-full max-w-[380px]">
       <h2 class="text-3xl font-bold text-[#1e293b] mb-10">Login</h2>
 
-      @if (hasError) {
-        <div class="relative flex items-center justify-center p-4 mb-8 border border-[#e01414] bg-[#fff5f5] rounded-sm">
-          <div class="absolute -top-3 bg-white px-2 text-[#e01414]">
-            <i class="fa-regular fa-circle-xmark"></i>
-          </div>
-          <span class="text-[#e01414] font-mono text-xs uppercase tracking-tight">Something went wrong</span>
-        </div>
-      }
 
-      <form class="space-y-6">
+
+      <form class="space-y-6" [formGroup]="loginForm" (ngSubmit)="submitForm()" >
         <div>
-          <label class="block mb-2 text-[13px] font-semibold text-slate-600 font-mono" [class.text-red-600]="hasError">Username</label>
+          @let userNameControl=loginForm.get('username');
+          <label class="block mb-2 text-[13px] font-semibold text-slate-600 font-mono" >Username</label>
           <input type="text"
                  class="custom-input w-full px-4 py-3"
-                 [class.border-red-600]="hasError"
+                 formControlName="username"
                  placeholder="user123">
-          @if (hasError) {
-            <p class="text-red-600 text-[11px] font-mono mt-1">Your username is required</p>
-          }
+@if(userNameControl?.errors&& userNameControl?.touched){
+  <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+  <svg class="shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+  </svg>
+  <span class="sr-only">Danger</span>
+  <div>
+      <ul class="mt-1.5 list-disc list-inside">
+        <li>Your username is required.</li>
+    </ul>
+  </div>
+</div>
+}
         </div>
 
+
         <div>
-          <label class="block mb-2 text-[13px] font-semibold text-slate-600 font-mono" [class.text-red-600]="hasError">Password</label>
+          @let passwordControl=loginForm.get('password');
+          <label class="block mb-2 text-[13px] font-semibold text-slate-600 font-mono" >Password</label>
           <div class="relative">
             <input type="password"
                    class="custom-input w-full px-4 py-3 pr-12"
-                   [class.border-red-600]="hasError"
+                   formControlName="password"
                    placeholder="********">
             <button type="button" class="absolute inset-y-0 right-3 text-slate-300">
               <i class="fa-regular fa-eye-slash"></i>
             </button>
           </div>
-          @if (hasError) {
-            <p class="text-red-600 text-[11px] font-mono mt-1">Your password is required</p>
-          }
+@if(passwordControl?.errors&& passwordControl?.touched){
+  <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+  <svg class="shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+  </svg>
+  <span class="sr-only">Danger</span>
+  <div>
+      <ul class="mt-1.5 list-disc list-inside">
+        <li>Your password is required.</li>
+    </ul>
+  </div>
+</div>
+}
         </div>
 
         <div class="flex justify-end">
-          <a [routerLink]="['/forget']" routerLinkActive="router-link-active"  class="text-[10px] font-bold text-[#1d5cff] uppercase tracking-widest font-mono">Forgot your password?</a>
+          <a [routerLink]="['/reset-password']"  routerLinkActive="router-link-active"  class="text-[10px] font-bold text-[#1d5cff] uppercase tracking-widest font-mono">Forgot your password?</a>
         </div>
 
-        <button type="button" class="w-full py-4 bg-[#1d5cff] text-white font-bold rounded-sm text-sm hover:bg-blue-700 transition-all active:scale-[0.98]">
+
+          @if(msgError){
+         <p class="bg-red-300 text-white px-2 py-5 border"> Invalid username or password. </p>
+      }
+
+      @if(isSuccess){
+          <p class="bg-green-300 text-white px-2 py-5 border"> success</p>
+      }
+        <button [disabled]="isLoading" type="submit" class="w-full py-4 bg-[#1d5cff] text-white font-bold rounded-sm text-sm  transition-all active:scale-[0.98] btn-login">
           Login
+      @if(isLoading){
+           <span> <i class="fas fa-spin fa-spinner"></i></span>
+         }
         </button>
 
         <p class="text-center text-[13px] text-slate-500 font-mono mt-8">

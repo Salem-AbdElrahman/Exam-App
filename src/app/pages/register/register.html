@@ -1,126 +1,303 @@
-<div class="flex min-h-screen font-sans bg-white">
-  <section class="hidden md:flex md:w-1/2 bg-[#ebf2ff] p-12 lg:p-24 flex-col justify-center border-r border-slate-100">
-    <div class="max-w-md">
-      <div class="flex items-center gap-3 mb-16 text-[#1d5cff]">
-        <div class="bg-[#1d5cff] w-10 h-10 rounded-lg flex items-center justify-center text-white">
-          <i class="fa-solid fa-code"></i>
-        </div>
-        <span class="text-xl font-bold">Exam App</span>
+<div class="flex min-h-screen bg-white">
+
+  <!-- LEFT PANEL -->
+  <div class="hidden md:flex w-[48%] min-h-screen flex-col justify-start px-10 py-8 shrink-0"
+       style="background: linear-gradient(160deg, #ddeeff 0%, #c8dff8 40%, #b8d4f5 100%)">
+
+    <div class="flex items-center gap-2 mb-16">
+      <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+        <i class="fa-solid fa-code text-white text-xs"></i>
       </div>
-      <h1 class="text-[38px] font-bold text-[#1e293b] leading-[1.2] mb-12">
-        Empower your learning journey with our smart exam platform.
-      </h1>
-      <div class="space-y-10">
-        @for (f of features; track f.title) {
-          <div class="flex gap-5">
-            <div class="text-[#1d5cff] border-2 border-[#1d5cff] w-12 h-12 flex items-center justify-center rounded-lg shrink-0">
-              <i [class]="f.icon"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-[#1d5cff] text-lg font-mono tracking-tight">{{ f.title }}</h3>
-              <p class="text-slate-500 text-[14px] leading-relaxed mt-1 font-mono">{{ f.desc }}</p>
-            </div>
-          </div>
-        }
-      </div>
+      <span class="text-blue-600 font-semibold text-sm tracking-wide">Exam App</span>
     </div>
-  </section>
 
-  <main class="w-full md:w-1/2 flex items-center justify-center p-6 relative bg-white">
+    <h2 class="text-2xl font-extrabold text-gray-900 leading-snug mb-10 max-w-[260px]">
+      Empower your learning journey with our smart exam platform.
+    </h2>
 
-    @if (currentStep() === 1) {
-      <div class="w-full max-w-[480px] animate-fade-in">
-        <h2 class="text-3xl font-bold text-[#1e293b] mb-10">Create Account</h2>
-        <form class="grid grid-cols-2 gap-x-4 gap-y-5">
-          <div class="col-span-1">
-            <label class="label-style">First name</label>
-            <input type="text" class="custom-input w-full p-3" placeholder="Ahmed">
+    <div class="flex flex-col gap-6">
+      @for (feature of features; track feature.title) {
+        <div class="flex items-start gap-3">
+          <div class="w-9 h-9 border border-blue-600 rounded-xl flex items-center justify-center text-blue-600 shrink-0"
+               style="background:rgba(255,255,255,0.25)">
+            <i [class]="'fa-solid ' + feature.icon + ' text-sm'"></i>
           </div>
-          <div class="col-span-1">
-            <label class="label-style">Last name</label>
-            <input type="text" class="custom-input w-full p-3" placeholder="Abdullah">
+          <div>
+            <h3 class="text-[12px] font-bold text-blue-600 font-mono mb-0.5">{{ feature.title }}</h3>
+            <p class="text-[11px] text-gray-500 font-mono leading-5" [innerHTML]="feature.desc"></p>
           </div>
-          <div class="col-span-2">
-            <label class="label-style">Username</label>
-            <input type="text" class="custom-input w-full p-3" placeholder="user123">
-          </div>
-          <div class="col-span-2">
-            <label class="label-style">Email</label>
-            <input type="email" class="custom-input w-full p-3" placeholder="user@example.com">
-          </div>
-          <div class="col-span-2">
-            <label class="label-style">Phone</label>
-            <div class="relative">
-              <span class="absolute left-3 top-3.5 text-sm">🇪🇬 (+20) <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i></span>
-              <input type="text" class="custom-input w-full p-3 pl-28" placeholder="1012345678">
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="w-full md:w-[52%] min-h-screen bg-white flex flex-col items-end px-6 pt-5 pb-8">
+
+
+    <div class="w-full max-w-[340px] mx-auto flex flex-col justify-center flex-1 py-8">
+
+      <!-- Step Indicator -->
+      @if (currentStep > 1) {
+        <div class="flex items-center mb-5">
+          @for (s of stepDots; track s; let i = $index) {
+            <div [class]="currentStep >= s
+              ? 'w-2.5 h-2.5 rounded-full bg-blue-600 shrink-0'
+              : 'w-2.5 h-2.5 rounded-full border-2 border-dashed border-gray-300 bg-white shrink-0'">
             </div>
-          </div>
-          <div class="col-span-2">
-            <label class="label-style">Password</label>
-            <div class="relative">
-              <input type="password" class="custom-input w-full p-3 pr-12" placeholder="********">
-              <i class="fa-regular fa-eye-slash absolute right-4 top-4 text-slate-300"></i>
-            </div>
-          </div>
-          <div class="col-span-2">
-            <label class="label-style">Confirm Password</label>
-            <div class="relative">
-              <input type="password" class="custom-input w-full p-3 pr-12" placeholder="********">
-              <i class="fa-regular fa-eye-slash absolute right-4 top-4 text-slate-300"></i>
-            </div>
-          </div>
-
-          <button type="button" (click)="nextStep()" class="col-span-2 py-4 bg-[#1d5cff] text-white font-bold rounded-sm mt-4 hover:bg-blue-700 transition-all">
-            Create Account
-          </button>
-
-          <p class="col-span-2 text-center text-[13px] text-slate-500 font-mono mt-4">
-            Already have an account? <a href="#" class="text-[#1d5cff] font-bold hover:underline">Login</a>
-          </p>
-        </form>
-      </div>
-    }
-
-    @else if (currentStep() === 2) {
-      <div class="w-full max-w-[400px] animate-fade-in">
-        <button (click)="prevStep()" class="absolute top-10 left-10 w-10 h-10 border border-slate-200 rounded-lg text-slate-400 flex items-center justify-center">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-        <h2 class="text-3xl font-bold text-[#1e293b] mb-4">Verify OTP</h2>
-        <p class="text-slate-500 font-mono text-sm mb-10 leading-relaxed">
-          Please enter the 6-digits code we have sent to: <br>
-          <span class="text-slate-900 font-bold">user@example.com.</span>
-          <a href="#" class="text-[#1d5cff] font-bold underline ml-1">Edit</a>
-        </p>
-
-        <div class="flex justify-between gap-2 mb-8">
-          @for (i of [0,1,2,3,4,5]; track i) {
-            <input type="text" maxlength="1" class="w-12 h-14 border rounded-md text-center text-xl font-bold font-mono focus:border-[#1d5cff] outline-none"
-                   [value]="i === 4 ? '5' : ''" [class.border-[#1d5cff]]="i === 4" [class.border-slate-200]="i !== 4">
+            @if (i < stepDots.length - 1) {
+              <div [class]="currentStep > s
+                ? 'flex-1 h-px bg-blue-600'
+                : 'flex-1 h-px border-t border-dashed border-gray-300'">
+              </div>
+            }
           }
         </div>
-        <p class="text-slate-400 font-mono text-xs mb-8">Didn't receive the code? <a href="#" class="text-[#1d5cff] font-bold">Resend</a></p>
-        <button (click)="nextStep()" class="w-full py-4 bg-[#1d5cff] text-white font-bold rounded-sm">Verify Code</button>
+      }
 
-        <p class="text-center text-[13px] text-slate-500 font-mono mt-8">
-          Already have an account? <a [routerLink]="['/login']" routerLinkActive="router-link-active"  class="text-[#1d5cff] font-bold hover:underline">Login</a>
+      <h1 class="text-2xl font-extrabold text-gray-900 mb-1">Create Account</h1>
+
+      <!--STEP 1 — Email -->
+      @if (currentStep === 1) {
+        <form [formGroup]="registerForm" (ngSubmit)="submitEmail()" class="mt-5">
+          <div formGroupName="emailStep">
+
+            <div class="mb-5">
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+              <input
+                type="email"
+                formControlName="email"
+                placeholder="user@example.com"
+                class="w-full border-0 border-b px-0 py-2 text-sm text-gray-700
+                       placeholder-gray-400 outline-none bg-transparent transition"
+                [class]="isInvalid(emailStep, 'email')
+                  ? 'border-red-400' : 'border-gray-300 focus:border-blue-600'"
+              />
+              @if (isInvalid(emailStep, 'email')) {
+                <p class="text-red-500 text-[11px] mt-1">
+                  @if (emailStep.get('email')?.errors?.['required']) { Email is required. }
+                  @if (emailStep.get('email')?.errors?.['email']) { Enter a valid email. }
+                </p>
+              }
+            </div>
+
+            <button type="submit" [disabled]="isLoading"
+              class="w-full border border-gray-300 hover:bg-gray-50 text-gray-700
+                     font-medium py-2.5 rounded text-sm flex items-center justify-center
+                     gap-2 transition disabled:opacity-50 disabled:cursor-not-allowed">
+              @if (isLoading) {
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+              } @else {
+                Next <i class="fa-solid fa-chevron-right text-xs"></i>
+              }
+            </button>
+
+            <p class="text-center text-[12.5px] text-gray-500 mt-4">
+              Already have an account?
+              <a routerLink="/login" class="text-blue-600 font-medium hover:underline">Login</a>
+            </p>
+          </div>
+        </form>
+      }
+
+      <!-- STEP 2 — OTP -->
+      @if (currentStep === 2) {
+        <p class="text-blue-600 font-semibold text-sm mt-1 mb-2">Verify OTP</p>
+        <p class="text-xs text-gray-500 mb-5 leading-5">
+          Please enter the 6-digit code we have sent to:<br>
+          <span class="text-gray-700">{{ emailStep.get('email')?.value }}</span>
+          <button type="button" (click)="currentStep = 1"
+            class="text-blue-600 ml-1 hover:underline text-xs font-medium">Edit</button>
         </p>
-      </div>
-    }
 
-    @else if (currentStep() === 3) {
-      <div class="w-full max-w-[400px] text-center animate-fade-in">
-        <div class="w-20 h-20 bg-[#ebf2ff] text-[#1d5cff] rounded-full flex items-center justify-center mx-auto mb-8">
-          <i class="fa-regular fa-envelope-open text-4xl"></i>
-        </div>
-        <h2 class="text-3xl font-bold text-[#1e293b] mb-4">Verify your email</h2>
-        <p class="text-slate-500 font-mono text-sm mb-10">We've sent a link to <span class="font-bold">user@example.com</span>. Please click it to finish registration.</p>
-        <button class="w-full py-4 bg-[#1d5cff] text-white font-bold rounded-sm">Open Email App</button>
+        <form [formGroup]="registerForm" (ngSubmit)="submitOtp()">
+          <div formGroupName="otpStep">
 
-        <p class="text-center text-[13px] text-slate-500 font-mono mt-8">
-          Already have an account? <a href="#" class="text-[#1d5cff] font-bold hover:underline">Login</a>
-        </p>
-      </div>
-    }
-  </main>
+
+            <div class="flex gap-2 mb-3">
+              @for (ctrl of otpControls; track $index) {
+                <input
+                  type="text"
+                  maxlength="1"
+                  [id]="'otp-' + $index"
+                  (input)="onOtpInput($event, $index)"
+                  (keydown)="onOtpKeydown($event, $index)"
+                  class="w-10 h-10 text-center border rounded text-sm font-semibold
+                         text-gray-700 outline-none focus:border-blue-600
+                         focus:ring-2 focus:ring-blue-600/10 transition border-gray-300"
+                />
+              }
+            </div>
+
+            @if (otpStep.get('code')?.invalid && otpStep.get('code')?.touched) {
+              <p class="text-red-500 text-[11px] mb-3">Please enter the full 6-digit code.</p>
+            }
+
+            <p class="text-xs text-gray-400 mb-5">
+              You can request another code in:
+              <span class="text-gray-600 font-medium">{{ countdown }}s</span>
+              @if (countdown === 0) {
+                <button type="button" (click)="resendOtp()"
+                  class="ml-1 text-blue-600 hover:underline font-medium text-xs">
+                  Resend
+                </button>
+              }
+            </p>
+
+            <button type="submit" [disabled]="isLoading"
+              class="w-full border border-gray-300 hover:bg-gray-50 text-gray-700
+                     font-medium py-2.5 rounded text-sm transition
+                     flex items-center justify-center gap-2
+                     disabled:opacity-50 disabled:cursor-not-allowed">
+              @if (isLoading) {
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Verifying...
+              } @else {
+                Verify Code
+              }
+            </button>
+          </div>
+        </form>
+      }
+
+      <!--  STEP 3 — User Info -->
+      @if (currentStep === 3) {
+        <p class="text-blue-600 font-semibold text-sm mt-1 mb-5">Tell us more about you</p>
+
+        <form [formGroup]="registerForm" (ngSubmit)="submitInfo()">
+          <div formGroupName="userInfoStep">
+
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div>
+                <label class="block text-xs text-gray-600 mb-1">First name*</label>
+                <input type="text" formControlName="firstName" placeholder="Ahmed"
+                  class="w-full border-0 border-b px-0 py-2 text-sm text-gray-700
+                         placeholder-gray-400 outline-none bg-transparent transition"
+                  [class]="isInvalid(userInfoStep, 'firstName')
+                    ? 'border-red-400' : 'border-gray-300 focus:border-blue-600'"/>
+                @if (isInvalid(userInfoStep, 'firstName')) {
+                  <p class="text-red-500 text-[11px] mt-1">Required.</p>
+                }
+              </div>
+              <div>
+                <label class="block text-xs text-gray-600 mb-1">Last name*</label>
+                <input type="text" formControlName="lastName" placeholder="Abdullah"
+                  class="w-full border-0 border-b px-0 py-2 text-sm text-gray-700
+                         placeholder-gray-400 outline-none bg-transparent transition"
+                  [class]="isInvalid(userInfoStep, 'lastName')
+                    ? 'border-red-400' : 'border-gray-300 focus:border-blue-600'"/>
+                @if (isInvalid(userInfoStep, 'lastName')) {
+                  <p class="text-red-500 text-[11px] mt-1">Required.</p>
+                }
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-xs text-gray-600 mb-1">Username*</label>
+              <input type="text" formControlName="username" placeholder="user123"
+                class="w-full border-0 border-b px-0 py-2 text-sm text-gray-700
+                       placeholder-gray-400 outline-none bg-transparent transition"
+                [class]="isInvalid(userInfoStep, 'username')
+                  ? 'border-red-400' : 'border-gray-300 focus:border-blue-600'"/>
+              @if (isInvalid(userInfoStep, 'username')) {
+                <p class="text-red-500 text-[11px] mt-1">Required.</p>
+              }
+            </div>
+
+            <div class="mb-6">
+              <label class="block text-xs text-gray-600 mb-1">Phone*</label>
+              <div class="flex items-center border-b py-2 gap-2 transition"
+                [class]="isInvalid(userInfoStep, 'phone')
+                  ? 'border-red-400' : 'border-gray-300 focus-within:border-blue-600'">
+                <span class="text-sm text-gray-600 shrink-0">🇪🇬 EG(+20)</span>
+                <input type="tel" formControlName="phone" placeholder="1012345678"
+                  class="flex-1 border-0 px-0 text-sm text-gray-700 placeholder-gray-400
+                         outline-none focus:ring-0 bg-transparent"/>
+              </div>
+              @if (isInvalid(userInfoStep, 'phone')) {
+                <p class="text-red-500 text-[11px] mt-1">Required.</p>
+              }
+            </div>
+
+            <button type="submit" [disabled]="isLoading"
+              class="w-full border border-gray-300 hover:bg-gray-50 text-gray-700
+                     font-medium py-2.5 rounded text-sm flex items-center justify-center
+                     gap-2 transition disabled:opacity-50 disabled:cursor-not-allowed">
+              Next <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+        </form>
+      }
+
+      <!-- STEP 4 — Password -->
+      @if (currentStep === 4) {
+        <p class="text-blue-600 font-semibold text-sm mt-1 mb-5">Create a strong password</p>
+
+        <form [formGroup]="registerForm" (ngSubmit)="submitPassword()">
+          <div formGroupName="passwordStep">
+
+            <div class="mb-4">
+              <label class="block text-xs text-gray-600 mb-1">Password*</label>
+              <div class="flex items-center border-b py-2 transition"
+                [class]="isInvalid(passwordStep, 'password')
+                  ? 'border-red-400' : 'border-gray-300'">
+                <input [type]="showPassword ? 'text' : 'password'"
+                  formControlName="password" placeholder="••••••••"
+                  class="flex-1 border-0 px-0 text-sm text-gray-700 placeholder-gray-400
+                         outline-none focus:ring-0 bg-transparent"/>
+                <button type="button" (click)="showPassword = !showPassword"
+                  class="text-gray-400 hover:text-blue-600 text-sm transition">
+                  <i [class]="showPassword ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'"></i>
+                </button>
+              </div>
+              @if (isInvalid(passwordStep, 'password')) {
+                <p class="text-red-500 text-[11px] mt-1">
+                  @if (passwordStep.get('password')?.errors?.['required']) { Password is required. }
+                  @if (passwordStep.get('password')?.errors?.['minlength']) { Min 8 characters. }
+                </p>
+              }
+            </div>
+
+            <div class="mb-6">
+              <label class="block text-xs text-gray-600 mb-1">Confirm Password*</label>
+              <div class="flex items-center border-b py-2 transition"
+                [class]="isInvalid(passwordStep, 'confirmPassword') || passwordMismatch
+                  ? 'border-red-400' : 'border-gray-300'">
+                <input [type]="showConfirm ? 'text' : 'password'"
+                  formControlName="confirmPassword" placeholder="••••••••"
+                  class="flex-1 border-0 px-0 text-sm text-gray-700 placeholder-gray-400
+                         outline-none focus:ring-0 bg-transparent"/>
+                <button type="button" (click)="showConfirm = !showConfirm"
+                  class="text-gray-400 hover:text-blue-600 text-sm transition">
+                  <i [class]="showConfirm ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'"></i>
+                </button>
+              </div>
+              @if (passwordMismatch) {
+                <p class="text-red-500 text-[11px] mt-1">Passwords do not match.</p>
+              }
+            </div>
+            @if(msgError){
+          <p class="bg-red-300 text-white px-2 py-5 border"> {{msgError}} </p>
+      }
+       @if(isSuccess){
+          <p class="bg-green-300 text-white px-2 py-5 border"> Account Created </p>
+      }
+
+            <button type="submit" [disabled]="isLoading || passwordStep.invalid"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold
+                     py-3 rounded text-sm transition
+                     disabled:opacity-60 disabled:cursor-not-allowed
+                     flex items-center justify-center gap-2">
+              @if (isLoading) {
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Creating...
+              } @else {
+                Create Account
+              }
+            </button>
+          </div>
+        </form>
+      }
+
+    </div>
+  </div>
+
 </div>

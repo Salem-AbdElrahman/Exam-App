@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Flowbite } from './core/services/flowbite/flowbite';
 import { initFlowbite } from 'flowbite';
 
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],

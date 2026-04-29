@@ -1,0 +1,58 @@
+<div class="p-4 bg-gray-50">
+<app-header-page
+[title]="examTitle"
+icon="fa-regular fa-circle-question"
+[showBack]="true"></app-header-page>
+<div class="bg-white p-6">
+<div class="details grid grid-cols-[90%_1fr] ">
+  <div class="title flex items-center justify-between">
+    <h3 class="text-gray-900">{{examTitle}}</h3>
+    <p class="align-middle text-gray-600">Question <span class="text-blue-900">{{currentIndex}}</span> of {{Questions.length}}</p>
+  </div>
+  <div>
+  <div class="relative flex items-center justify-center w-20 h-20 ms-2">
+<svg class="w-full h-full transform-rotate-90">
+<circle cx="40" cy="40" r="35" stroke="#E5E7EB" stroke-width="6" fill="transparent" />
+<circle cx="40" cy="40" r="35" stroke="#185ADB" stroke-width="6" fill="transparent" stroke-dasharray="219.8"
+[style.strokeDashoffset]="offset" class="text-blue-600 transition-all duration-1000 ease-linear" />
+</svg>
+<span class="absolute text-sm font-bold text-gray-700 font-mono">{{displayTime}}</span>
+  </div>
+</div>
+<div class="w-full bg-blue-100  rounded-full  h-2">
+  <div class="bg-blue-600 h-2  rounded-full transition-all duration-500 " [style.width.%]="ProgressWidth()"></div>
+</div>
+    </div>
+    <div class="p-6 rounded-b-lg shadow-sm border-t border-gray-50">
+    @if(Questions.length > 0){
+       <div class="question-container">
+       <h2 class="text-xl font-bold text-blue-900 mb-6">{{Questions[currentIndex].text}}</h2>
+
+ @for(answer of Questions[currentIndex].answers ;track answer.id){
+ <div class="flex flex-col space-y-4">
+   <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+      <input type="radio" [name]="Questions[currentIndex].id" (change)="selectAnswer(Questions[currentIndex].id,answer.id)" id="opt1" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+      <span class="ml-3 text-gray-700 font-medium">{{answer.text}}</span>
+    </label>
+      </div>
+    }
+</div>
+    }
+
+
+@if(disabledMessage){
+    <div class="bg-red-400 border border-red-600 px-2 py-4 align-center animate-pulse">
+    <p>{{disabledMessage}}</p>
+  </div>
+}
+      <div class="justify-center items-center flex mt-8">
+        <button class="px-40 py-4 me-2 bg-gray-400
+         text-gray-600 rounded-lg font-medium hover:bg-blue-600 hover:text-white transition" (click)="previousQuestion()"><i class="fa-solid fa-angle-left"></i>Previous</button>
+     <button class="px-40 py-4  bg-blue-600 text-white rounded-lg
+     font-medium hover:bg-gray-400 hover:text-gray-600 transition" (click)="currentIndex===Questions.length - 1 ? finishExam():nextQuestion()">{{currentIndex === Questions.length-1  ? 'finish':'Next'}}<i class="fa-solid fa-angle-right"></i></button>
+
+      </div>
+    </div>
+</div>
+</div>
+

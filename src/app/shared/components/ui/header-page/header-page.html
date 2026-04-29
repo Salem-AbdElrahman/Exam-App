@@ -1,0 +1,16 @@
+  <div class=" ms-8 mt-10">
+  <div class="flex items-center gap-4 mb-8">
+@if(showBack){
+  <button click="goBack()" class="flex items-center justify-center text-black text-sm w-10 h-16 bg-white border border-gray-200 rounded shadow-sm hover:border-r-gray-50 active:border-blue-500">
+ <i class="fa-solid fa-chevron-left"></i>
+</button>
+}
+<div class="flex flex-1 items-center text-2xl bg-blue-500 max-w-7xl mx-auto text-white p-4 rounded-lg shadow-sm">
+<div class="mr-4">
+  <i [class]="icon"></i>
+</div>
+<h2 class="font-bold">{{title}}</h2>
+</div>
+  </div>
+
+</div>

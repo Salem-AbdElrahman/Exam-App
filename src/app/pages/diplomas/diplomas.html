@@ -1,1 +1,17 @@
-<p>diplomas works!</p>
+<div class="p-6 pt-15">
+  <h2 class="bg-blue-700 text-white p-4 flex items-center gap-2 rounded-t-lg mb-4 font-semibold text-2xl">
+    <i class="fa-solid fa-graduation-cap"></i>
+    Diplomas
+  </h2>
+   <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 mb-4" >
+     @for(diploma of Diplomas;track diploma.id){
+       <div class="relative rounded overflow-hidden group cursor-pointer shadow-sm" [routerLink]="['/Exam', diploma.id,diploma.title]">
+    <img [src]="diploma.image" class="w-full h-90 transition-transform duration-500 ease-in-out group-hover:scale-110 object-cover" [alt]="diploma.title">
+    <div class="absolute bottom-0 left-0 right-0 translate-y-full bg-blue-900/70  group-hover:translate-y-0 duration-500 h-fit p-4">
+<h3 class="text-white font-bold text-lg">{{diploma.title}}</h3>
+<p class="text-white text-sm">{{diploma.description}}</p>
+    </div>
+      </div>
+     }
+
+   </div>

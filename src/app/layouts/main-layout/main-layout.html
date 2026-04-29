@@ -1,2 +1,104 @@
-<router-outlet></router-outlet>
+
+
+<button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="text-heading bg-transparent box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base ms-3 mt-3 text-sm p-2 focus:outline-none inline-flex sm:hidden">
+   <span class="sr-only">Open sidebar</span>
+   <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+   </svg>
+</button>
+
+<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64  bg-blue-50 transition-transform -translate-x-full sm:translate-x-0 flex flex-col h-screen" aria-label="Sidebar">
+   <div class="h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e border-default flex-1">
+      <a [routerLink]="['/Diplomas']"  class="flex items-center mb-2">
+         <img src="images/logo.png" class="w-full h-6 me-3 filter invert" alt="Exam app Logo" />
+      </a>
+      <p class="text-blue-600 font-semibold">
+        <i class="fa-solid fa-folder me-2"></i>
+        <span>Exam App </span>
+      </p>
+      <ul class="space-y-2 font-serif text-gray-500 mt-10">
+         <li>
+            <a [routerLink]="['/Diplomas']" routerLinkActive="border border-1 border-solid border-blue-500 text-blue-600 bg-blue-100"  class="flex items-center px-2 py-2 mb-2 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">
+     <i class="fa-solid fa-graduation-cap"></i><span class="ms-1">Diplomas</span>
+            </a>
+         </li>
+         <li>
+            <a href="#" class="flex items-center px-2 py-2 mb-2 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">
+<i class="fa-regular fa-user"></i>  <span class="flex-1 ms-1">Account Settings</span>
+            </a>
+         </li>
+      </ul>
+
+   </div>
+   <div class="p-4 border-t flex items-center gap-3">
+  <img src="images/user.jpg" class="w-10 h-10 rounded-full" alt="User">
+<div>
+  <p class="text-sm font-semibold text-blue-600">FirstName</p>
+  <p class="text-xs text-gray-500">user_email@example.com</p>
+</div>
+
+<div class="relative inline-block">
+  <button (click)="isDropdownOpen.set(!isDropdownOpen())" class="p-2">
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+  </button>
+
+
+  @if (isDropdownOpen()) {
+    <div class="fixed inset-0 z-40" (click)="isDropdownOpen.set(false)"></div>
+
+    <div class="absolute right-0 bottom-full mb-3 w-48 bg-white rounded-lg shadow-xl z-50 border overflow-hidden">
+      <ul class="py-2">
+        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center text-gray-700">
+          <i class="fa-regular fa-circle-user mr-2"></i> Account
+        </li>
+        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center text-gray-700">
+          <i class="fa-solid fa-chart-line mr-2"></i> Dashboard
+        </li>
+        <li (click)="logout()" class="px-4 py-2 hover:bg-red-50 cursor-pointer flex items-center text-red-600 border-t">
+          <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Logout
+        </li>
+      </ul>
+    </div>
+  }
+</div>
+   </div>
+
+
+</aside>
+<div class="sm:ml-64">
+
+
+<nav class="flex ms-3 mt-3" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center text-gray-400 text-sm font-serif space-x-1 md:space-x-2 rtl:space-x-reverse">
+    <li class="inline-flex items-center">
+      <a href="#" class="inline-flex items-center text-sm font-medium text-body hover:text-fg-brand">
+        Diplomas
+      </a>
+    </li>
+    <li>
+      <div class="flex items-center space-x-1.5">
+<span class="mx-2 text-gray-400">/</span>
+       <a href="#" class="inline-flex items-center text-sm font-medium text-body hover:text-fg-brand">Projects</a>
+      </div>
+    </li>
+    <li aria-current="page">
+      <div class="flex items-center space-x-1.5">
+      <span class="mx-2 text-gray-400">/</span>
+        <span class="inline-flex items-center text-sm font-medium text-body-subtle">Flowbite</span>
+      </div>
+    </li>
+  </ol>
+</nav>
+
+   <div class="p-5">
+     <router-outlet></router-outlet>
+   </div>
+</div>
+
+
+
+
+
+
+
 

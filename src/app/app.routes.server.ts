@@ -2,10 +2,6 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
   {
-    path: 'Diplomas',
-    renderMode: RenderMode.Server
-  },
-  {
     path: 'Question/:examid',
     renderMode: RenderMode.Server
   },

@@ -1,12 +1,12 @@
 <div class="p-4 bg-gray-50">
 <app-header-page
-title="CSS Exam questions"
+[title]="examTitle"
 icon="fa-regular fa-circle-question"
 [showBack]="true"></app-header-page>
 <div class="bg-white p-6">
 <div class="details grid grid-cols-[90%_1fr] ">
   <div class="title flex items-center justify-between">
-    <h3 class="text-gray-900">Frontend Development - CSS Quiz</h3>
+    <h3 class="text-gray-900">{{examTitle}}</h3>
     <p class="align-middle text-gray-600">Question <span class="text-blue-900">25</span> of 25</p>
   </div>
   <div>
@@ -28,7 +28,7 @@ icon="fa-regular fa-circle-question"
                   stroke-dasharray="75, 100"></circle> </svg>
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
           <span class="text-xs text-gray-500 font-bold">Your Score</span>
-          <span class="text-2xl font-black text-gray-800">{{(resultData?.correctAnswers/resultData?.totalQuestions *100)| number:'1.0-0'}}%</span>
+          <span class="text-2xl font-black text-gray-800">{{examScore}}%</span>
         </div>
       </div>
 
@@ -60,11 +60,11 @@ icon="fa-regular fa-circle-question"
             <span class="w-4 h-4 mr-3 border-2 border-red-500 rounded-full flex items-center justify-center">
               <span class="w-2 h-2 bg-red-500 rounded-full"></span>
             </span>
-            {{item.selectedAnswer || 'No Answer'}} (Your Answer)
+            {{item.selectedAnswer?.text || 'No Answer'}} (Your Answer)
           </div>
           <div class="flex items-center p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 text-sm font-semibold">
             <span class="w-4 h-4 mr-3 border-2 border-emerald-500 rounded-full"></span>
-            {{item.correctAnswer}} (Correct Answer)
+            {{item.correctAnswer?.text}} (Correct Answer)
           </div>
         </div>
       </div>

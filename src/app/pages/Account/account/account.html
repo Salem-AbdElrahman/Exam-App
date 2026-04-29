@@ -1,0 +1,80 @@
+<div class="flex-1 bg-[#F9F9F9] min-h-screen p-8">
+    <div class="bg-white rounded-xl shadow-sm border border-[#E0E0E0] overflow-hidden max-w-5xl">
+
+      <app-header-page
+title="Account Settings"
+icon="fa-regular fa-user"
+[showBack]="true"></app-header-page>
+
+        <div class="flex flex-col md:flex-row">
+          <app-sidebar></app-sidebar>
+
+            <div class="flex-1 p-8 lg:p-12">
+                <form [formGroup]="profileForm" class="space-y-6">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold text-[#4F4F4F]">First name</label>
+                            <input type="text" formControlName="firstName"
+                                   class="p-3 bg-[#FDFDFD] border border-[#EBEBEB] rounded-lg focus:outline-none focus:border-blue-400">
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold text-[#4F4F4F]">Last name</label>
+                            <input type="text" formControlName="lastName"
+                                   class="p-3 bg-[#FDFDFD] border border-[#EBEBEB] rounded-lg focus:outline-none focus:border-blue-400">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-[#4F4F4F]">Username</label>
+                        <input type="text" formControlName="username"
+                               class="p-3 bg-[#F5F5F5] border border-[#EBEBEB] rounded-lg cursor-not-allowed text-gray-500">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-[#4F4F4F]">Email</label>
+                        <button type="button"
+                class="text-[#2B82FB] text-xs font-bold hover:underline" (click)="openChangeEmailModal()">
+                <i class="fa-regular fa-pen-to-square"></i>
+               Change
+              </button>
+              @if (isModalOpen) {
+  <app-change-email (close)="isModalOpen = false"></app-change-email>
+}
+                        <div class="relative">
+                            <input type="email" formControlName="email" readonly
+                              class="w-full p-3 bg-[#FDFDFD] border border-[#EBEBEB] rounded-lg focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-[#4F4F4F]">Phone</label>
+                        <div class="flex items-center border border-[#EBEBEB] rounded-lg overflow-hidden bg-[#FDFDFD]">
+                            <div class="px-3 py-3 bg-[#F5F5F5] border-r border-[#EBEBEB] flex items-center gap-2">
+                                <span class="text-xs">🇪🇬 (+20)</span>
+                            </div>
+                            <input type="text" formControlName="phone" class="flex-1 p-3 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row justify-center items-center pt-10 gap-4">
+                        <button type="button" (click)="openDeleteModal()" class="text-[#EB5757] font-semibold px-10 py-3 shadow-sm bg-red-100  hover:bg-red-50 transition-all">
+                            Delete My Account
+                        </button>
+                        @if (isDeleteModalOpen) {
+                <app-delete-account
+              (close)="isDeleteModalOpen = false"
+              (confirmDelete)="isDeleteModalOpen = false">
+            </app-delete-account>
+}
+                        <button type="submit" (click)="saveChanges()" class="bg-[#2B82FB] text-white px-12 py-3  font-bold shadow-md hover:bg-blue-600 transition-all">
+                            Save Changes
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

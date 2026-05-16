@@ -23,9 +23,6 @@ confirmDelete() {
     next: (res) => {
       localStorage.clear();
       this.router.navigate(['/login']);
-    },
-    error: (err) => {
-      alert('Failed to delete account. Please try again.');
     }
   });
 }

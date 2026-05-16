@@ -1,20 +1,19 @@
 import { isPlatformBrowser } from '@angular/common';
-import { inject, PLATFORM_ID } from '@angular/core';
+import {  inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
 export const logedGuard: CanActivateFn = (route, state) => {
+  const router = inject(Router);
+  const id = inject(PLATFORM_ID);
 
-  let router=inject(Router)
-  let pLATFORM_ID=inject(PLATFORM_ID)
-if (isPlatformBrowser(pLATFORM_ID)) {
- if (localStorage.getItem('userToken')!==null) {
+  if (!isPlatformBrowser(id)) {
+    return true;
+  }
 
-router.navigate(['/Diplomas'])
-return false;
- }
- else{
+  const token = localStorage.getItem('userToken');
+  if (token) {
+    router.navigate(['/Diplomas']);
+    return false;
+  }
   return true;
- }
-}
-return false;
 };

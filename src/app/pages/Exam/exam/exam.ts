@@ -26,7 +26,7 @@ if(isPlatformBrowser(this.pLATFORM_ID)){
 
     this.examService.getAllExams(diplomaId).subscribe({
       next:(res)=>{
-        console.log(this.examTitle);
+        // console.log(this.examTitle);
         this.Exams=res.payload.data;
 
 

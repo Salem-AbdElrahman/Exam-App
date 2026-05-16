@@ -2,6 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'ngx-toastr/toastr';
+
 
 .btn-login{
   @apply disabled:bg-blue-900

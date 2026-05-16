@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule, AbstractContro
 import { Sidebar } from '../../../shared/components/ui/Account/sidebar/sidebar';
 import { HeaderPage } from '../../../shared/components/ui/header-page/header-page';
 import { AccountService } from '../../../core/services/UserAccount/account-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-change-password',
@@ -16,6 +17,7 @@ export class ChangePassword {
   showNew = false;
   showConfirm = false;
   private readonly accountService=inject(AccountService)
+  private readonly toastrService=inject(ToastrService)
   passwordForm = new FormGroup({
     currentPassword: new FormControl('', [Validators.required]),
     newPassword: new FormControl('', [Validators.required]),
@@ -32,8 +34,12 @@ export class ChangePassword {
   this.accountService.changePassword(passwordData).subscribe({
     next: (res) => {
       this.passwordForm.reset();
+      // console.log(res);
+this.toastrService.success(res.message)
     },
     error: (err) => {
+      // console.log(err);
+
     }
   });
 }

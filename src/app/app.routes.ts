@@ -11,6 +11,7 @@ export const routes: Routes = [
   {
     path: '',
     component: AuthLayout,
+    canActivate:[logedGuard],
     children: [
       {
         path: 'login',
@@ -34,36 +35,43 @@ export const routes: Routes = [
   {
     path: '',
     component: MainLayout,
+    canActivate:[authGuard],
     children: [
       {
         path: 'Diplomas',
         title: 'Diplomas',
-        loadComponent: () => import('./pages/diplomas/diplomas').then(m => m.Diplomas)
+        loadComponent: () => import('./pages/diplomas/diplomas').then(m => m.Diplomas),
+        data:{breadcrumb:'Diplomas'}
       },
       {
         path: 'Exam/:id/:title',
         title: 'Exams',
-        loadComponent: () => import('./pages/Exam/exam/exam').then(m => m.Exam)
+        loadComponent: () => import('./pages/Exam/exam/exam').then(m => m.Exam),
+        data:{breadcrumb:'Exams'}
       },
       {
         path: 'Question/:examid',
         title: 'Questions',
-        loadComponent: () => import('./pages/Questions/question/question').then(m => m.Question)
+        loadComponent: () => import('./pages/Questions/question/question').then(m => m.Question),
+        data:{breadcrumb:'Question'}
       },
       {
         path: 'Answer/:id',
         title: 'Answers',
-        loadComponent: () => import('./pages/Answers/answer/answer').then(m => m.Answer)
+        loadComponent: () => import('./pages/Answers/answer/answer').then(m => m.Answer),
+        data:{breadcrumb:'Answer'}
       },
       {
         path: 'Account',
         title: 'Account',
-        loadComponent: () => import('./pages/Account/account/account').then(m => m.Account)
+        loadComponent: () => import('./pages/Account/account/account').then(m => m.Account),
+        data:{breadcrumb:'Account'}
       },
       {
         path: 'changePassword',
         title: 'Change Password',
-        loadComponent: () => import('./pages/ChangePassword/change-password/change-password').then(m => m.ChangePassword)
+        loadComponent: () => import('./pages/ChangePassword/change-password/change-password').then(m => m.ChangePassword),
+         data:{breadcrumb:'changePassword'}
       }
     ]
   },

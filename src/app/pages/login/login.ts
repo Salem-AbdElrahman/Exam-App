@@ -10,7 +10,7 @@ import { AuthService } from 'auth-lib';
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class Login {
+export class Login  {
 hasError:boolean = false;
 private readonly authService=inject(AuthService)
 private readonly activatedRoute=inject(ActivatedRoute)
@@ -66,15 +66,8 @@ this.router.navigate(['/Diplomas'])
 
   }
   this.isLoading=false
-console.log(res);
+// console.log(res);
 
-  },
-  error:(err)=>{
- console.log(err);
-
-
-
-this.isLoading=false
   }
 
  })

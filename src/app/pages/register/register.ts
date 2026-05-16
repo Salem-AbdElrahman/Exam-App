@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import {AuthService} from './../../../../dist/auth-lib'
-import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-register',
   imports: [RouterLink,ReactiveFormsModule],
@@ -121,15 +120,11 @@ features = [
     this.isLoading = true;
   this.authService.confirmEmailVerification(this.otpStep.value).subscribe({
       next:(res)=>{
-        console.log(res);
+        // console.log(res);
  setTimeout(() => {
       this.isLoading = false;
       this.currentStep = 3;
     }, 600);
-      },
-      error:(err)=>{
-        console.log(err);
-
       }
     })
 
@@ -181,10 +176,6 @@ features = [
       this.isLoading = false;
       this.currentStep = 3;
     }, 600);
-      },
-      error:(err)=>{
-        console.log(err);
-
       }
     })
     this.startCountdown();
@@ -221,11 +212,6 @@ setTimeout(() => {
     }, 1000);
      this.isSuccess= "success";
 }
-      },
-      error:(err:HttpErrorResponse)=>{
-        console.log(err);
-      this.msgError=  err.error.message;
-this.isLoading = false;
       }
     })
 

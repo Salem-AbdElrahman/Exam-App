@@ -95,11 +95,7 @@ answers:this.userAnswers
 this.questionService.submitAnswers(payload).subscribe({
   next:(res)=>{
 this.router.navigate(['/Answer',res.payload.submission.id])
-console.log(res);
-
-  },
-  error:(err)=>{
-    // console.log(err);
+// console.log(res);
 
   }
 })

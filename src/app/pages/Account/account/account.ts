@@ -3,7 +3,6 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ChangeEmail } from '../../changeEmail/change-email/change-email';
 import { DeleteAccount } from '../../DeleteAccount/delete-account/delete-account';
 import { HeaderPage } from '../../../shared/components/ui/header-page/header-page';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Sidebar } from '../../../shared/components/ui/Account/sidebar/sidebar';
 import { AccountService } from '../../../core/services/UserAccount/account-service';
 import { isPlatformBrowser } from '@angular/common';
@@ -26,16 +25,12 @@ profileForm = new FormGroup({
   });
   private readonly accountService=inject(AccountService)
   private readonly pLATFORM_ID=inject(PLATFORM_ID)
-  ngOnInit(): void {
-if (isPlatformBrowser(this.pLATFORM_ID)) {
-this.getUserData() ;
-}
-  }
+
   getUserData(){
 this.accountService.getUserProfile().subscribe({
   next:(res)=>{
     const user=res.payload.user;
-    console.log(user);
+    // console.log(user);
 
     this.profileForm.patchValue({
       firstName:user.firstName,
@@ -58,9 +53,6 @@ saveChanges() {
     this.accountService.updateUserProfile(updatedData).subscribe({
       next: (res) => {
         // alert('Profile updated successfully!');
-      },
-      error: (err) => {
-        // alert('Failed to update profile. Please try again.');
       }
     });
   }
@@ -71,4 +63,9 @@ saveChanges() {
 openDeleteModal() {
   this.isDeleteModalOpen = true;
 }
+  ngOnInit(): void {
+if (isPlatformBrowser(this.pLATFORM_ID)) {
+this.getUserData() ;
+}
+  }
 }

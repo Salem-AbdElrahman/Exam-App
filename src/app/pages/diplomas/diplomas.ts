@@ -13,23 +13,20 @@ export class Diplomas implements OnInit {
  private readonly  diplomaService=inject(DiplomaService);
  private readonly  pLATFORM_ID=inject(PLATFORM_ID);
  Diplomas:data[]=[]
- ngOnInit(): void {
-if (isPlatformBrowser(this.pLATFORM_ID)) {
-this.getDiplomaData();
-}
- }
+
  getDiplomaData():void{
 
 this.diplomaService.getAllDiplomas().subscribe({
   next:(res:any)=>{
     this.Diplomas=res.payload.data;
 
-  },
-  error:(err)=>{
-
-
   }
 })
+ }
+  ngOnInit(): void {
+if (isPlatformBrowser(this.pLATFORM_ID)) {
+this.getDiplomaData();
+}
  }
 
 }

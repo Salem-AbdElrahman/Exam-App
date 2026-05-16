@@ -1,13 +1,17 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { BreadcrumbService } from '../../core/services/Breadcrump/breadcrumb-sevice';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterLink,RouterLinkActive,RouterOutlet],
+  imports: [RouterLink,RouterLinkActive,RouterOutlet,AsyncPipe],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
 export class MainLayout {
+  breadcrumbService=inject(BreadcrumbService)
+ private readonly router=inject(Router)
 isDropdownOpen = signal(false);
 
   toggleDropdown() {
@@ -16,5 +20,7 @@ isDropdownOpen = signal(false);
 
   logout() {
     this.isDropdownOpen.set(false);
+     localStorage.removeItem('userToken');
+  this.router.navigate(['/login']);
   }
 }
